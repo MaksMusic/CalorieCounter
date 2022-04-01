@@ -47,11 +47,12 @@ public class Main {
 
         if (punkMenu >= 1 && punkMenu <= 4) {
             if (punkMenu == 1) {
-                System.out.println("Введите значения количества шагов больше 0");
+
                 Scanner scanner1 = new Scanner(System.in);
-                int userInputSteps = scanner1.nextInt();
-                int result = inputUserSteps(userInputSteps); // здесь проверка, чтобы 0 или отрицтаельное число не вводили
-                // и здесь будет функция из StepTracker, которая принимает введенные шаги
+               // int userInputSteps = scanner1.nextInt();
+                //  int result = inputUserSteps(userInputSteps);
+                StepTracker stepTracker = new StepTracker();
+                stepTracker.addSteps1();
 
                 printMenu(); //высветить меню обратно // надо будет только здесь и сканер добавить, чтобы считывать данные
                 int change = scanner1.nextInt();
