@@ -12,10 +12,6 @@ public class Main {
         variant(validationUserInput);
     }
 
-
-
-
-
     private static void printMenu() {
         System.out.println("1.Внести количество шагов за определенный день");
         System.out.println("2.Напечатать статистику за определенный месяц");
@@ -31,7 +27,10 @@ public class Main {
             int userInput = scanner.nextInt();
             validationUserInput(userInput);
         }
+        variant(num);
+
         return num;
+
     }
 
     static int inputUserSteps(int userInputSteps) {
@@ -57,7 +56,7 @@ public class Main {
                 printMenu(); //высветить меню обратно // надо будет только здесь и сканер добавить, чтобы считывать данные
                 int change = scanner1.nextInt();
                 int resultChange = validationUserInput(change);
-                variant(resultChange);
+                validationUserInput(resultChange);
 
 
             } else if (punkMenu == 2) {
