@@ -3,7 +3,7 @@ import java.util.HashMap;
         import java.util.Map;
 
 public class StepTracker {
-    private int plan  = 10_000;
+    private int plan  = 10000;
 
     public int getPlan() {
         return plan;
