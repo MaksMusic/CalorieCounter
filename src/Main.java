@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class Main {
-
+    static StepTracker stepTracker = new StepTracker();
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -51,17 +51,17 @@ public class Main {
                 Scanner scanner1 = new Scanner(System.in);
                // int userInputSteps = scanner1.nextInt();
                 //  int result = inputUserSteps(userInputSteps);
-                StepTracker stepTracker = new StepTracker();
+
                 stepTracker.addSteps1();
 
-                printMenu(); //высветить меню обратно // надо будет только здесь и сканер добавить, чтобы считывать данные
+                printMenu();                        //высветить меню обратно // надо будет только здесь и сканер добавить, чтобы считывать данные
                 int change = scanner1.nextInt();
                 int resultChange = validationUserInput(change);
                 validationUserInput(resultChange);
 
 
             } else if (punkMenu == 2) {
-                System.out.println("Выберите месяц за который необходимо распечатать статистику");
+                stepTracker.statistika1();
                 // Scanner scanner1 = new Scanner(System.in);
                // int userInputSteps = scanner1.nextInt();
                 // тут скорее всего надо еще проверять, что они вводят  в зависимости от того по какому варианту будет искать по названию или числу порядкового номера месяца
@@ -74,12 +74,20 @@ public class Main {
                 variant(resultChange);
 
             } else if (punkMenu == 3) {
-                //Scanner scanner1 = new Scanner(System.in);
+                Scanner scanner1 = new Scanner(System.in);
                 System.out.println("Введите новую цель по количеству шагов за месяц");
-               // int userInputSteps = scanner1.nextInt();
-                // и здесь будет функция из StepTracker, которая принимает введенные шаги и заменяет старое значение на новое
+                 int userInputSteps = scanner1.nextInt();
+                 if (userInputSteps>0){
+                     stepTracker.setPlan(userInputSteps);
+                     System.out.println("\033[0;92m" + "План на месяц успешно изменен" + "\033[0m" );
+                 }else {
+                     System.out.println("\033[0;91m" + "План изменить не удалось"+ "\033[0m");
+                     //тут дописать запуск меню главного снова
+                 }
+
+
                 printMenu();
-                Scanner scanner1 = new Scanner(System.in); // это времнное потом надо удалить, просто сейчас нет месяца
+                scanner1 = new Scanner(System.in); // это времнное потом надо удалить, просто сейчас нет месяца
                 int change = scanner1.nextInt();
                 int resultChange = validationUserInput(change);
                 variant(resultChange);
