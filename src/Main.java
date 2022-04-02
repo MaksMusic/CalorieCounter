@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class Main {
-
+    static StepTracker stepTracker = new StepTracker();
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -51,7 +51,7 @@ public class Main {
                 Scanner scanner1 = new Scanner(System.in);
                // int userInputSteps = scanner1.nextInt();
                 //  int result = inputUserSteps(userInputSteps);
-                StepTracker stepTracker = new StepTracker();
+
                 stepTracker.addSteps1();
 
                 printMenu(); //высветить меню обратно // надо будет только здесь и сканер добавить, чтобы считывать данные
@@ -61,7 +61,7 @@ public class Main {
 
 
             } else if (punkMenu == 2) {
-                System.out.println("Выберите месяц за который необходимо распечатать статистику");
+                stepTracker.statistika1();
                 // Scanner scanner1 = new Scanner(System.in);
                // int userInputSteps = scanner1.nextInt();
                 // тут скорее всего надо еще проверять, что они вводят  в зависимости от того по какому варианту будет искать по названию или числу порядкового номера месяца
