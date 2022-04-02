@@ -1,7 +1,3 @@
-import com.sun.org.apache.bcel.internal.generic.IF_ACMPEQ;
-import com.sun.xml.internal.ws.api.model.wsdl.WSDLOutput;
-import org.w3c.dom.ls.LSOutput;
-import sun.security.rsa.RSAUtil;
 
 import java.util.*;
 import java.util.HashMap;
@@ -25,20 +21,6 @@ public class StepTracker {
     Scanner scanner = new Scanner(System.in);
     Map<Integer, String> month = new HashMap();
     private final int[][] monthArray = new int[12][];
-
-//    final private int[] month1 = new int[31];
-//    final private int[] month2 = new int[31];
-//    final private int[] month3 = new int[31];
-//    final private int[] month4 = new int[31];
-//    final private int[] month5 = new int[31];
-//    final private int[] month6 = new int[31];
-//    final private int[] month7 = new int[31];
-//    final private int[] month8 = new int[31];
-//    final private int[] month9 = new int[31];
-//    final private int[] month10 = new int[31];
-//    final private int[] month11 = new int[31];
-//    final private int[] month12 = new int[31];
-
 
     public StepTracker() {
         plan = 10000;
@@ -175,11 +157,34 @@ public class StepTracker {
         System.out.println("Максимальное количество пройденных шагов в месяце в   - " + maxSam(month));
         System.out.println("В среднем вы проходите   - " + averageSum(month) + " шагов за "+this.month.get(month) );
         System.out.println("Пройдено км за месяц   "+this.month.get(month) + " -  " + Convertor.getDistance(sam(month)) +  " км");
-        System.out.printf("Количество сожженных килокалорий за месяц  - %.1f", Convertor.getCalories(sam(month)) );
+        System.out.printf("Количество сожженных килокалорий за месяц  - %.1f \n", Convertor.getCalories(sam(month)) );
+        System.out.printf("Максимальное количество дней подряд когда выполнен план - " + maxday(month) );
         System.out.println();
 
 
     }
+    private int maxday(int month){
+        int count = 0;
+        int [] arrauDay  = new int[30];
+        for (int i = 0,j = 0; i < monthArray[month - 1].length; i++) {
+            if (monthArray[month - 1][i] >=  getPlan()){
+                arrauDay[j] =  count++;
+           }else {
+                j ++;
+                count = 0;
+            }
+        }
+        int sum  = arrauDay[1];
+        for (int i = 1; i < arrauDay.length; i++) {
+            if (sum<arrauDay[i]){
+                sum = arrauDay[i];
+            }
+        }
+        return sum;
+
+
+    }
+
 
     private int averageSum(int month){
         return sam(month) / monthArray[month - 1].length;
