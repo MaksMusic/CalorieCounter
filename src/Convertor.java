@@ -1,10 +1,13 @@
 public class Convertor {
 
 
-    public static int getDistance(int step) { // преобразуем шаги в киллометры  для подсчета дистанции можно считать, что один шаг равен 75см
+    public static double getDistance(int step) { // преобразуем шаги в киллометры  для подсчета дистанции можно считать, что один шаг равен 75см
 
-        int distance = step * 75;
-        return distance;
+        double distance = step * 75; // это у нас см получаются
+
+        double result = distance / 100000;
+
+        return result;
 
     }
 
