@@ -164,7 +164,7 @@ public class StepTracker {
 
     }
     private int maxday(int month){
-        int count = 0;
+        int count = 1;
         int [] arrauDay  = new int[30];
         for (int i = 0,j = 0; i < monthArray[month - 1].length; i++) {
             if (monthArray[month - 1][i] >=  getPlan()){
