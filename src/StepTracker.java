@@ -1,14 +1,15 @@
 import com.sun.org.apache.bcel.internal.generic.IF_ACMPEQ;
 import com.sun.xml.internal.ws.api.model.wsdl.WSDLOutput;
 import org.w3c.dom.ls.LSOutput;
+import sun.security.rsa.RSAUtil;
 
 import java.util.*;
 import java.util.HashMap;
 import java.util.Map;
 
 public class StepTracker {
-    private int color ;
-    private int plan = 10000;
+    private int color;
+    private int plan;
 
     public int getPlan() {
         return plan;
@@ -40,6 +41,7 @@ public class StepTracker {
 
 
     public StepTracker() {
+        plan = 10000;
         monthArray[0] = new int[31];
         monthArray[1] = new int[31];
         monthArray[2] = new int[31];
@@ -83,7 +85,7 @@ public class StepTracker {
     }
 
     private void addSteps2(int otvet) {
-        addSteps3(monthArray[otvet-1], otvet);
+        addSteps3(monthArray[otvet - 1], otvet);
     }
 
 
@@ -98,7 +100,7 @@ public class StepTracker {
             int shagInt = Integer.parseInt(shag);
 
             if (shagInt > 0) {
-                n[dayInt-1] = shagInt;
+                n[dayInt - 1] = shagInt;
                 System.out.println("\033[0;94m" + "Шаги успешно добавленный в месяц " + month.get(nomer) + " в " + day + " день" + "\033[0m");
 
 
@@ -129,59 +131,96 @@ public class StepTracker {
         statistika2(otvet);
 
 
-
     }
-    private void statistika2 (int month){
-        System.out.println("-----------------------------------------------------------");
-        System.out.println("Подождите идет загрузка ");
-        char s  = 7770;
 
-        for (int i = 0; i < 8 ; i++) {
+
+    private void loading() {
+        System.out.println("Подождите идет загрузка ");
+        char s = 7470;
+
+        for (int i = 0; i < 8; i++) {
 
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            System.out.print(s+" ");
+            System.out.print(s + " ");
         }
         System.out.println();
-        for (int i = 0; i < monthArray[month-1].length; i++) {
-            System.out.printf("%d день - %d  шагов , ",i+1,monthArray[month-1][i]);
+    }
+
+    private void statistika2(int month) {
+        System.out.println("-----------------------------------------------------------");
+        loading();
+        for (int i = 0; i < monthArray[month - 1].length; i++) {
+            System.out.printf("%d день - %d  шагов , ", i + 1, monthArray[month - 1][i]);
         }
         System.out.println();
         System.out.println("-----------------------------------------------------------");
-        System.out.println("План по кол - ву шагов в день " + plan+ " шагов ");
-        System.out.println("План по кол - ву шагов в Месяц " + plan*31 + " шагов");
-        int planItog= statistikaPlanMonth(month);
-        if (this.color==1){
-            System.out.println("\033[0;92m" + "План за " + this.month.get(month) + " Выполнен на " + planItog+ " %" + "\033[0m" );
-        }else {
+        System.out.println("План по кол - ву шагов в день " + plan + " шагов ");
+        System.out.println("План по кол - ву шагов в Месяц " + plan * 31 + " шагов");
+        int planItog = statistikaPlanMonth(month);
+        if (this.color == 1) {
+            System.out.println("\033[0;92m" + "План за " + this.month.get(month) + " Выполнен на " + planItog + " %" + "\033[0m");
+        } else {
 
-            System.out.println("\033[0;91m" + "План за " + this.month.get(month) + " Выполнен на " + planItog+ " %"+ "\033[0m");
+            System.out.println("\033[0;91m" + "План за " + this.month.get(month) + " Выполнен на " + planItog + " %" + "\033[0m");
         }
 
         System.out.println("-----------------------------------------------------------");
+        System.out.println("ПОДГРУЖАЕТСЯ СТАТИСТИКА ЗА " + this.month.get(month));
+        loading();
+        System.out.println("Пройденно шагов  - " + sam(month));
+        System.out.println("Максимальное количество пройденных шагов в месяце в   - " + maxSam(month));
+        System.out.println("В среднем вы проходите   - " + averageSum(month) + " шагов за "+this.month.get(month) );
+        System.out.println("Пройдено км за месяц   "+this.month.get(month) + " -  " + Convertor.getDistance(sam(month)) " км");
+        System.out.println("Количество сожженных килокалорий  км за месяц  - " + Convertor.getDistance(sam(month)) );
+
 
     }
 
+    private int averageSum(int month){
+        return sam(month) / monthArray[month - 1].length;
+    }
 
-    private int statistikaPlanMonth(int month){
-        int sam = 0;
-        int plan = 31 * this.plan;        //план за месяц
-        for (int n : monthArray[month-1]){
-            sam+=n;
+
+
+    private int maxSam(int month){
+        int maxSam =  monthArray[month - 1][0];
+        for (int i = 0; i < monthArray[month - 1].length; i++) {
+            if (maxSam<monthArray[month - 1][i]){
+                maxSam = monthArray[month - 1][i];
+            }
 
         }
-        int procent1 = plan/100;        // 1 процент от плана
-        int planMonth = plan - sam;  // сколько не выполнено шагов за месяц
+        return maxSam;
+    }
 
-        if (planMonth < 0){       //если все выполнено
+
+    private int sam(int month){
+        int sam = 0;
+        for (int n : monthArray[month - 1]) {
+            sam += n;
+
+        }
+        return sam;
+    }
+
+
+    private int statistikaPlanMonth(int month) {
+
+        int plan = 31 * this.plan;        //план за месяц
+
+        int procent1 = plan / 100;        // 1 процент от плана
+        int planMonth = plan - sam(month);  // сколько не выполнено шагов за месяц
+
+        if (planMonth < 0) {       //если все выполнено
             this.color = 1;
             return 100;
-        }else {         //если не выполнен план
-            this.color= 0;
-            return  sam / procent1;    // процент на сколько выполнен план
+        } else {         //если не выполнен план
+            this.color = 0;
+            return sam(month) / procent1;    // процент на сколько выполнен план
         }
 
     }
