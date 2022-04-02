@@ -10,6 +10,7 @@ public class Main {
         int userInput = scanner.nextInt();
         int validationUserInput = validationUserInput(userInput);
         variant(validationUserInput);
+        System.out.println("Программа завершила работу");
     }
 
     private static void printMenu() {
@@ -43,13 +44,13 @@ public class Main {
         return userInputSteps;
     }
 
-    static void variant (int punkMenu){
+    static void variant(int punkMenu) {
 
-        if (punkMenu >= 1 && punkMenu <= 4) {
+        if (punkMenu >= 1 && punkMenu < 4) {
             if (punkMenu == 1) {
 
                 Scanner scanner1 = new Scanner(System.in);
-               // int userInputSteps = scanner1.nextInt();
+                // int userInputSteps = scanner1.nextInt();
                 //  int result = inputUserSteps(userInputSteps);
                 StepTracker stepTracker = new StepTracker();
                 stepTracker.addSteps1();
@@ -62,8 +63,10 @@ public class Main {
 
             } else if (punkMenu == 2) {
                 System.out.println("Выберите месяц за который необходимо распечатать статистику");
+                StepTracker stepTracker = new StepTracker();
+                stepTracker.addSteps1();
                 // Scanner scanner1 = new Scanner(System.in);
-               // int userInputSteps = scanner1.nextInt();
+                // int userInputSteps = scanner1.nextInt();
                 // тут скорее всего надо еще проверять, что они вводят  в зависимости от того по какому варианту будет искать по названию или числу порядкового номера месяца
                 // так же здесь нужно будет обратиться к функции или листу StepTracker и перебрать HasMap
                 printMenu(); //высветить меню обратно // надо будет только здесь и сканер добавить, чтобы считывать данные
@@ -71,22 +74,23 @@ public class Main {
                 // int userInputSteps = scanner1.nextInt();
                 int change = scanner1.nextInt();
                 int resultChange = validationUserInput(change);
-                variant(resultChange);
+                validationUserInput(resultChange);
 
             } else if (punkMenu == 3) {
                 //Scanner scanner1 = new Scanner(System.in);
                 System.out.println("Введите новую цель по количеству шагов за месяц");
-               // int userInputSteps = scanner1.nextInt();
+                // int userInputSteps = scanner1.nextInt();
                 // и здесь будет функция из StepTracker, которая принимает введенные шаги и заменяет старое значение на новое
                 printMenu();
                 Scanner scanner1 = new Scanner(System.in); // это времнное потом надо удалить, просто сейчас нет месяца
                 int change = scanner1.nextInt();
                 int resultChange = validationUserInput(change);
-                variant(resultChange);
-            } else {
-                System.out.println("Программа завершила свою работу");
-            }
+                validationUserInput(resultChange);
+            } //else if (punkMenu == 4) {
+              //  System.out.println("Программа завершила ");
+           // }
         }
+
     }
 
 }
