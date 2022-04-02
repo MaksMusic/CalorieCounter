@@ -174,7 +174,7 @@ public class StepTracker {
         System.out.println("Пройденно шагов  - " + sam(month));
         System.out.println("Максимальное количество пройденных шагов в месяце в   - " + maxSam(month));
         System.out.println("В среднем вы проходите   - " + averageSum(month) + " шагов за "+this.month.get(month) );
-        System.out.println("Пройдено км за месяц   "+this.month.get(month) + " -  " + Convertor.getDistance(sam(month)) " км");
+        System.out.println("Пройдено км за месяц   "+this.month.get(month) + " -  " + Convertor.getDistance(sam(month)) +  " км");
         System.out.println("Количество сожженных килокалорий  км за месяц  - " + Convertor.getDistance(sam(month)) );
 
 
